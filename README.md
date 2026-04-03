@@ -1,5 +1,5 @@
 ## ⚡ THE MISSION
-STRIKE_FORCE is a high-fidelity, NASA-grade Pomodoro Command Unit designed for developers who demand a tactical edge in their workflow. Built with the MERN mindset and a Cyberpunk HUD aesthetic, this isn't just a timer—it's a mission control center for your focus.
+Pomodoro Command Unit designed for developers who demand a tactical edge in their workflow. This isn't just a timer—it's a mission control center for your focus.
 ---
 ## 🛠️ SYSTEM SPECIFICATIONS
 * Adaptive HUD: Fully responsive CSS Grid/Flexbox architecture that scales from 4K tiling setups to mobile displays using vmin fluid typography.
@@ -11,8 +11,8 @@ STRIKE_FORCE is a high-fidelity, NASA-grade Pomodoro Command Unit designed for d
 ## 🚀 DEPLOYMENT
 ### 1. Clone the Repository
 ```bash
-git clone https://www.google.com/search?q=https://github.com/your-username/strike-force-pomo.git
-cd strike-force-pomo
+git clone https://github.com/bhavi-th/pomodoro.git
+cd pomodoro/
 ```
 ### 2. Install Dependencies
 ```bash
