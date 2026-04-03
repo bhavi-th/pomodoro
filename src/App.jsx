@@ -53,9 +53,8 @@ export default function App() {
       timerRef.current = setInterval(() => dispatch({ type: 'TICK' }), 1000);
     } else if (state.timeLeft === 0 && state.isActive) {
       document.title = "TASK_COMPLETE";
-      new Audio('https://actions.google.com/sounds/v1/alarms/beep_short.ogg').play().catch(() => {});
     } else {
-      document.title = "STANDBY";
+      document.title = "⚠️ LOST FOCUS?";
     }
     return () => clearInterval(timerRef.current);
   }, [state.isActive, state.timeLeft]);
