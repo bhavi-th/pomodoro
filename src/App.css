@@ -1,0 +1,208 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;400;800&display=swap');
+
+:root {
+  --neon: #00ff41;
+  --neon-dim: rgba(0, 255, 65, 0.1);
+  --bg: #010101;
+  --surface: #080808;
+  --border: #1a1a1a;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--neon);
+  font-family: 'JetBrains Mono', monospace;
+  overflow: hidden;
+}
+
+.terminal-root {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background: radial-gradient(circle at center, #0a1a0a 0%, #010101 100%);
+}
+
+/* UI DECORATION */
+.grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(var(--border) 1px, transparent 1px), 
+                    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+.scanlines {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
+  background-size: 100% 4px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.hud-container {
+  width: 95vw;
+  max-width: 1500px;
+  height: 90vh;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.hud-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px double var(--border);
+  padding-bottom: 1rem;
+}
+
+.stat-box {
+  background: var(--border);
+  padding: 5px 15px;
+  font-size: 0.8rem;
+  clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+}
+
+.main-layout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 320px 1fr 320px;
+  gap: 3rem;
+  margin-top: 2rem;
+}
+
+/* TASK INPUT */
+.task-input-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.task-input {
+  flex: 1;
+  background: #000;
+  border: 1px solid var(--border);
+  color: var(--neon);
+  font-family: inherit;
+  padding: 1.5rem;
+  font-size: 1.1rem;
+  resize: none;
+  outline: none;
+}
+
+.task-input:focus { border-color: var(--neon); }
+
+.task-status {
+  font-size: 0.7rem;
+  margin-top: 10px;
+  text-align: right;
+  opacity: 0.5;
+}
+
+/* TIMER CORE */
+.core-display {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  border: 1px solid var(--neon-dim);
+}
+
+.corner-bracket {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border: 2px solid var(--neon);
+}
+
+.top-left { top: -2px; left: -2px; border-right: none; border-bottom: none; }
+.top-right { top: -2px; right: -2px; border-left: none; border-bottom: none; }
+.bottom-left { bottom: -2px; left: -2px; border-right: none; border-top: none; }
+.bottom-right { bottom: -2px; right: -2px; border-left: none; border-top: none; }
+
+.timer-main {
+  font-size: clamp(5rem, 18vmin, 12rem);
+  font-weight: 800;
+  text-shadow: 0 0 15px var(--neon-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+.progress-container {
+  width: 100%;
+  height: 10px;
+  background: #111;
+  margin: 2rem 0;
+  border: 1px solid #222;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--neon);
+  box-shadow: 0 0 20px var(--neon);
+  transition: width 1s linear;
+}
+
+/* BUTTONS */
+.controls {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 15px;
+}
+
+button {
+  font-family: inherit;
+  padding: 1.2rem;
+  text-transform: uppercase;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-main { background: var(--neon); color: #000; border: none; }
+.btn-sub { background: transparent; color: var(--neon); border: 1px solid var(--neon); }
+
+.mode-btn {
+  width: 100%;
+  background: transparent;
+  border: 1px solid #222;
+  color: #444;
+  text-align: left;
+  margin-bottom: 12px;
+  padding: 1.2rem;
+}
+
+.mode-btn.active {
+  border-color: var(--neon);
+  color: var(--neon);
+  background: rgba(0, 255, 65, 0.05);
+}
+
+button:disabled, .task-input:disabled {
+  opacity: 0.2;
+  filter: grayscale(1);
+  cursor: not-allowed;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1100px) {
+  .main-layout { grid-template-columns: 1fr 1fr; }
+  .core-display { grid-column: span 2; order: -1; }
+}
+
+.timer-active { animation: blink-fast 1s infinite; }
+@keyframes blink-fast { 50% { opacity: 0.8; } }
